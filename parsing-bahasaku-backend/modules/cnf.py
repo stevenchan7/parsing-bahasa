@@ -5,23 +5,6 @@ import pandas as pd
 TRIANGULAR_TABLE = {}
 RESULT = {}
 
-def onCekButtonClick(input_string_raw):
-  input_string = input_string_raw.lower().split(" ")
-
-  is_string_accepted = is_accepted(input_string)
-
-  if (is_string_accepted):
-    result = get_table_element(input_string_raw)
-
-    df = pd.DataFrame(result)
-    df = df.style.highlight_null(props="color: transparent;")  # Hide NaNs
-
-    # Display the table in Streamlit
-    st.write('Kalimat diterima')
-    st.table(df)
-  else:
-    st.write('Input tidak diterima')
-
 def is_accepted(input_string):
   prodRules = get_set_of_production()
 
@@ -32,7 +15,6 @@ def is_accepted(input_string):
 
   for i in reversed(range(1, len(input_string)+1)):
     for j in range(1, i+1):
-      print(i, j)
       # Paling dasar  
       if (j == j + len(input_string) - i):
         tempList = []
@@ -73,7 +55,7 @@ def get_set_of_production():
 
   dirpath = os.path.dirname(os.path.abspath(__file__))
 
-  f = open(os.path.join(dirpath, '../rules-of-cfg.txt'), "r", encoding="utf-8")
+  f = open(os.path.join(dirpath, '../rules-of-cnf.txt'), "r", encoding="utf-8")
   for line in f:
     # Remove space after line
     line = line.splitlines()
@@ -99,6 +81,8 @@ def get_set_of_production():
         if val not in tempList:
           tempList.append(val.lower())
       RESULT[key] = tempList
+  
+  print(RESULT)
 
   return RESULT
 
