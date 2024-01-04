@@ -18,10 +18,10 @@ def is_accepted(input_string):
     for j in range(i, len(input_string)+1):
       TRIANGULAR_TABLE[(i,j)] = []
 
-  for i in reversed(range(1, len(input_string)+1)):
-    for j in range(1, i+1):
+  for i in reversed(range(1, len(input_string)+1)): # 3 2 1
+    for j in range(1, i+1): # dari 1 sampai ke i
       # Paling dasar  
-      if (j == j + len(input_string) - i):
+      if (j == j + len(input_string) - i): #1,1 2,2 3,3
         tempList = []
         for key, value in prodRules.items():
           for val in value:
@@ -33,7 +33,7 @@ def is_accepted(input_string):
       else:
         tempList = []
         resultList = []
-        # Gabungin di sini
+        # kali di sini
         for k in range(len(input_string) - i):
             first = TRIANGULAR_TABLE[(j,j+k)]
             second = TRIANGULAR_TABLE[(j+k+1,j+len(input_string) - i)]
@@ -53,7 +53,7 @@ def is_accepted(input_string):
   else:
     return False
 
-
+# ngebaca file terus dijadiin list
 def get_set_of_production():
   global RESULT
   RESULT.clear()
@@ -148,6 +148,7 @@ def get_raw_set_of_production():
     print(RESULT)
     return RESULT
 
+# Print tabel CYK
 def get_table_element(input_string):
   global TRIANGULAR_TABLE
   result = []
